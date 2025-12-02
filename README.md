@@ -59,12 +59,12 @@ C --> E[Style.CSS]
 <p align="center" style="display: flex; align-items: flex-start; justify-content: center;">
 <img alt="Imagem não disponivel" title="#helpme-Cisco" src=""/> </p>
 
-- 
+---
 
-Componentes Principais:
-App.py: Criará um servidor local.
-index.html: Pagina inicial do site
-style.css: Personalização da pagina inicial
+<b>Componentes Principais:</b>
+- App.py: Criará um servidor local.
+- index.html: Pagina inicial do site
+- style.css: Personalização da pagina inicial
 
 ---
 
