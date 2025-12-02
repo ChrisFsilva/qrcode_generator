@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de QRCode Wi-Fi</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Gerador de QR Code Wi-Fi</h1>
+
+        <form class="card" action="/gerar" method="POST">
+            
+            <div class="frm">
+                <label for="ssid">Nome da rede/Wi-Fi (SSID):</label>
+                <input id="ssid" name="ssid" type="text" required>
+            </div>
+
+            <div class="frm">
+                <label for="password">Senha:</label>
+                <input id="password" name="password" type="text" required>
+            </div>
+
+            <div class="frm">
+                <label for="auth">Segurança:</label>
+                <select id="auth" name="auth">
+                    <option value="WPA">WPA/WPA2/WPA3</option>
+                    <option value="WEP">WEP</option>
+                    <option value="nopass">Sem senha</option>
+                </select>
+            </div>
+
+            <button class="btn" type="submit">Gerar QR Code</button>
+        </form>
+    </div>
+</body>
+</html>

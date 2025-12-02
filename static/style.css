@@ -1,0 +1,61 @@
+body{
+    display: flex;
+    text-align: center;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    min-height: 100vh;       /* ocupa a tela inteira */
+
+}
+
+input, select{
+    border-radius: 500px;
+    height: 25px;
+}
+
+label{
+    padding: 10px;
+    font-size: 20px;
+}
+
+.card{
+    width: 500px;
+    padding: 20px;
+    
+    border-style:outset;
+    border-radius: 50px;
+    background-color: lightgray;
+
+    box-shadow: 5px 5px 20px 0px;
+}
+
+.frm {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1px;
+}
+
+.frm label {
+    white-space: nowrap; /* impede quebra de frm no texto */
+    margin-right: 8px;
+}
+
+.frm input,
+.frm select {
+    flex: 1;
+}
+
+.btn{
+    border-radius: 10px;
+    cursor: pointer;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+}
+
+.btn:hover{
+
+    background-color: rgb(110, 136, 207);
+    box-shadow: 5px 3px 5px 0px;
+    font-weight: bold;
+}
