@@ -15,6 +15,8 @@
             <option value="wifi">Wi-Fi</option>
             <option value="url">Link Dinamico</option>
             <option value="vcard">Cartão de contato</option>
+            <option value="whatsapp">Mensagem no whatsapp</option>
+            <option value="pix">PIX para pagamento</option>
         </select>
 
         <form class="card" action="/gerar" method="POST">
@@ -71,6 +73,37 @@
                 </div>
             </div>
 
+            <!-- FORMULARIO PARA MENSAGEM NO WHATSAPP -->
+            <div class="whats_frm" id="whats-fields" style="display: none;">
+                <div class="frm">
+                    <label>Telefone de contato: </label>
+                    <input id="wa_number" name="wa_number" type="text">
+                </div>
+                <div class="frm">
+                    <label>Mensagem de contato: </label>
+                    <input id="wa_msg" name="wa_msg" type="text">
+                </div>
+            </div>
+
+            <!-- FORMULARIO PARA PIX -->
+            <div class="pix_frm" id="pix-fields" style="display: none;">
+                <div class="frm">
+                    <label>Chave Pix: </label>
+                    <input id="pixKey" name="pixKey" type="text">
+                </div>
+                <div class="frm">
+                    <label>Nome do responsavel: </label>
+                    <input id="pixName" name="pixName" type="text" minlength="5" maxlength="24">
+                </div>
+                <div class="frm">
+                    <label>Cidade da transição: </label>
+                    <input id="pixCity" name="pixCity" type="text" minlength="3" maxlength="15">
+                </div>
+                <div class="frm">
+                    <label>Valor: </label>
+                    <input id="pixValor" name="pixValor" type="text">
+                </div>
+            </div>
 
             <button class="btn" type="submit">Gerar QR Code</button>
         </form>
@@ -84,6 +117,8 @@
             const wifiFields = document.getElementById("wifi-fields");
             const urlFields = document.getElementById("url-fields");
             const vcardFields = document.getElementById("vcard-fields");
+            const waFields = document.getElementById("whats-fields");
+            const pixFields = document.getElementById("pix-fields");
 
             // Pegar os inputs do WiFi
             const ssid = document.getElementById("ssid");
@@ -99,12 +134,25 @@
             const tel = document.getElementById("telefone");
             const mail = document.getElementById("email");
 
+            // Pegar os inputs do whatsapp
+            const wanumber  = document.getElementById("wa_number")
+            const wamsg  = document.getElementById("wa_msg")
+            
+            // Pegar os inputs do Pix
+            const pixKey  = document.getElementById("pixKey")
+            const pixName  = document.getElementById("pixName")
+            const pixCity  = document.getElementById("pixCity")
+            const pixValor  = document.getElementById("pixValor")
+            
+            // Função autenticação WiFi
             if (tipo==="wifi") {
                 // Ativar visualização das regras de WIFi
                 wifiFields.style.display = "block";
                 // Desativar a visuação das regras de URL
                 urlFields.style.display = "none";
                 vcardFields.style.display = "none";
+                waFields.style.display = "none"
+                
 
                 // Ativar variaveis do Wifi
                 ssid.required = true;
@@ -113,11 +161,24 @@
 
                 // Desativar variaveis do URL
                 url.required = false;
+
+                // Ativar variaveis do vcard
+                name.required = false;
+                sname.required = false;
+                tel.required = false;
+                mail.required = false;
+                
+                // Desativar variaveis do whatsapp
+                wanumber.required = false;
+                wamsg.required = false;
             }
+
+            // Função atalho URL
             else if (tipo ==="url"){
                 wifiFields.style.display = "none";
                 urlFields.style.display = "block";
                 vcardFields.style.display = "none";
+                waFields.style.display = "none"
 
                 // Ativar variaveis do URL
                 url.required = true;
@@ -126,11 +187,24 @@
                 ssid.required = false;
                 password.required = false;
                 auth.required = false;
+
+                // Ativar variaveis do vcard
+                name.required = false;
+                sname.required = false;
+                tel.required = false;
+                mail.required = false;
+
+                // Desativar variaveis do whatsapp
+                wanumber.required = false;
+                wamsg.required = false;
             }
+
+            // Função salvar contato
             else if (tipo ==="vcard"){
                 wifiFields.style.display = "none";
                 urlFields.style.display = "none";
                 vcardFields.style.display = "block";
+                waFields.style.display = "none"
 
                 // Desativar variaveis do URL
                 url.required = false;
@@ -145,7 +219,70 @@
                 sname.required = true;
                 tel.required = true;
                 mail.required = true;
+
+                // Desativar variaveis do whatsapp
+                wanumber.required = false;
+                wamsg.required = false;
             }
+
+            // Função Whatsapp
+            else if (tipo ==="whatsapp"){
+                wifiFields.style.display = "none";
+                urlFields.style.display = "none";
+                vcardFields.style.display = "none";
+                waFields.style.display = "block"
+
+                // Ativar variaveis do URL
+                url.required = false;
+
+                //Desativar variaveis de WiFi
+                ssid.required = false;
+                password.required = false;
+                auth.required = false;
+
+                // Ativar variaveis do vcard
+                name.required = false;
+                sname.required = false;
+                tel.required = false;
+                mail.required = false;
+                
+                // Ativar variaveis do whatsapp
+                wanumber.required = true;
+                wamsg.required = true;
+            }
+
+            else if (tipo ==="pix"){
+                wifiFields.style.display = "none";
+                urlFields.style.display = "none";
+                vcardFields.style.display = "none";
+                waFields.style.display = "none";
+                pixFields.style.display = "block"
+
+                // Ativar variaveis do URL
+                url.required = false;
+
+                //Desativar variaveis de WiFi
+                ssid.required = false;
+                password.required = false;
+                auth.required = false;
+
+                // Desativar variaveis do vcard
+                name.required = false;
+                sname.required = false;
+                tel.required = false;
+                mail.required = false;
+
+                // Desativar variaveis do whatsapp
+                wanumber.required = false;
+                wamsg.required = false;
+
+                // Desativar variaveis do whatsapp
+                pixKey.required = true;
+                pixName.required = true;
+                pixCity.required = true;
+                pixValor.required = true;
+            }
+
         }
     </script>
 </body>
