@@ -8,32 +8,145 @@
 </head>
 
 <body>
-    <div class="container">
-        <h1>Gerador de QR Code Wi-Fi</h1>
+    <div class="container" onchange="mostrarCampos()">
+        <h1>Gerador de QR Code</h1>
+        <select id="type_qrcode" class="menu">
+            <option value="">O que irá transformar em QrCode?</option>
+            <option value="wifi">Wi-Fi</option>
+            <option value="url">Link Dinamico</option>
+            <option value="vcard">Cartão de contato</option>
+        </select>
 
         <form class="card" action="/gerar" method="POST">
+
+            <input type="hidden" id="tipo" name="tipo">
             
-            <div class="frm">
-                <label for="ssid">Nome da rede/Wi-Fi (SSID):</label>
-                <input id="ssid" name="ssid" type="text" required>
+            <!-- FORMULARIO PARA CRIAÇÃO DE WIFI -->
+            <div class="wifi_frm" id="wifi-fields" style="display: none;">
+                <div class="frm">
+                    <label for="ssid">Nome da rede/Wi-Fi (SSID):</label>
+                    <input id="ssid" name="ssid" type="text" required>
+                </div>
+
+                <div class="frm">
+                    <label for="password">Senha:</label>
+                    <input id="password" name="password" type="text" required>
+                </div>
+
+                <div class="frm">
+                    <label for="auth">Segurança:</label>
+                    <select id="auth" name="auth">
+                        <option value="WPA">WPA/WPA2/WPA3</option>
+                        <option value="WEP">WEP</option>
+                        <option value="nopass">Sem senha</option>
+                    </select>
+                </div>
             </div>
 
-            <div class="frm">
-                <label for="password">Senha:</label>
-                <input id="password" name="password" type="text" required>
+            <!-- FORMULARIO PARA CRIAÇÃO DE URL -->
+            <div class="url_frm" id="url-fields" style="display: none;">
+                <label>URL:</label>
+                <input id="url" name="url" type="text">
             </div>
 
-            <div class="frm">
-                <label for="auth">Segurança:</label>
-                <select id="auth" name="auth">
-                    <option value="WPA">WPA/WPA2/WPA3</option>
-                    <option value="WEP">WEP</option>
-                    <option value="nopass">Sem senha</option>
-                </select>
+            <!-- FORMULARIO PARA CRIAÇÃO DE CONTATO -->
+            <div class="vcard_frm" id="vcard-fields" style="display: none;">
+                <div class="frm">
+                    <label for="nome">Nome: </label>
+                    <input id="nome" name="nome" type="text">
+                </div>
+                <div class="frm">
+                    <label for="sobrenome">Sobrenome:</label>
+                    <input id="sobrenome" name="sobrenome" type="text">
+                </div>
+
+                <div class="frm">
+                    <label for="telefone">Telefone:</label>
+                    <input id="telefone" name="telefone" type="text">
+                </div>
+
+                <div class="frm">
+                    <label for="email">E-mail:</label>
+                    <input id="email" name="email" type="email">
+                </div>
             </div>
+
 
             <button class="btn" type="submit">Gerar QR Code</button>
         </form>
     </div>
+
+    <script>
+        function mostrarCampos(){
+            const tipo = document.getElementById("type_qrcode").value;
+            document.getElementById("tipo").value = tipo;
+
+            const wifiFields = document.getElementById("wifi-fields");
+            const urlFields = document.getElementById("url-fields");
+            const vcardFields = document.getElementById("vcard-fields");
+
+            // Pegar os inputs do WiFi
+            const ssid = document.getElementById("ssid");
+            const password = document.getElementById("password");
+            const auth = document.getElementById("auth");
+            
+            // Pegar os inputs do url
+            const url = document.getElementById("url");
+            
+            // Pegar os inputs do vcard
+            const name = document.getElementById("nome");
+            const sname = document.getElementById("sobrenome");
+            const tel = document.getElementById("telefone");
+            const mail = document.getElementById("email");
+
+            if (tipo==="wifi") {
+                // Ativar visualização das regras de WIFi
+                wifiFields.style.display = "block";
+                // Desativar a visuação das regras de URL
+                urlFields.style.display = "none";
+                vcardFields.style.display = "none";
+
+                // Ativar variaveis do Wifi
+                ssid.required = true;
+                password.required = true;
+                auth.required = true;
+
+                // Desativar variaveis do URL
+                url.required = false;
+            }
+            else if (tipo ==="url"){
+                wifiFields.style.display = "none";
+                urlFields.style.display = "block";
+                vcardFields.style.display = "none";
+
+                // Ativar variaveis do URL
+                url.required = true;
+
+                //Desativar variaveis de WiFi
+                ssid.required = false;
+                password.required = false;
+                auth.required = false;
+            }
+            else if (tipo ==="vcard"){
+                wifiFields.style.display = "none";
+                urlFields.style.display = "none";
+                vcardFields.style.display = "block";
+
+                // Desativar variaveis do URL
+                url.required = false;
+
+                // Desativar variaveis de WiFi
+                ssid.required = false;
+                password.required = false;
+                auth.required = false;
+
+                // Ativar variaveis do vcard
+                name.required = true;
+                sname.required = true;
+                tel.required = true;
+                mail.required = true;
+            }
+        }
+    </script>
 </body>
 </html>

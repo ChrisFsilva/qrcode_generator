@@ -4,18 +4,30 @@ body{
     align-items: center;
     align-content: center;
     justify-content: center;
-    min-height: 100vh;       /* ocupa a tela inteira */
+    /* min-height: 100vh;       ocupa a tela inteira */
 
 }
 
-input, select{
+input {
     border-radius: 500px;
     height: 25px;
+    background-color: rgb(196, 188, 188);
 }
 
-label{
+label{  
     padding: 10px;
     font-size: 20px;
+}
+
+.menu{
+    text-align: center;
+    font-size: 25px;
+    font-style: bold;
+    margin-bottom: 50px;
+    border-radius: 20px;
+    width: 500px;
+    height: 70px;
+    cursor: pointer;
 }
 
 .card{
@@ -43,6 +55,7 @@ label{
 .frm input,
 .frm select {
     flex: 1;
+    background-color: rgb(196, 188, 188);
 }
 
 .btn{
